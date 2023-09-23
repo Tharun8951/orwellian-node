@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-
 const mongoURI = process.env.mongo_URI
 
 const mongoDB = async () => {

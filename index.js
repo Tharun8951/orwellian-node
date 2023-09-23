@@ -2,7 +2,11 @@ const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 8080
 
+//running db
 require('dotenv').config()
+const mongoDB = require('./db')
+mongoDB()
+
 
 const cors = require('cors')
 app.use(cors())
@@ -14,9 +18,6 @@ app.listen(PORT, ()=>{
     console.log(`server started at port ${PORT}`)
 })
 
-//running db
-const mongoDB = require('./db')
-mongoDB()
 
 
 app.get('/', (req,res)=>{
