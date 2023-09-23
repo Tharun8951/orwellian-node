@@ -1,32 +1,35 @@
-const express = require('express')
-const app = express()
-const PORT = process.env.PORT || 8080
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 8080;
 
-//running db
-require('dotenv').config()
-const mongoDB = require('./db')
-mongoDB()
+// Running db
+require('dotenv').config();
+const connectDB = require('./db'); // Import the function to establish the database connection
 
+const cors = require('cors');
+app.use(cors());
 
-const cors = require('cors')
-app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-
-app.listen(PORT, ()=>{
-    console.log(`server started at port ${PORT}`)
-})
-
-
-
-app.get('/', (req,res)=>{
-    res.json({
-        msg: "Hello world"
+// Ensure that the MongoDB connection is established before starting the server
+connectDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server started at port ${PORT}`);
+        });
     })
-})
+    .catch((error) => {
+        console.error('Error connecting to the database:', error);
+    });
 
+app.get('/', (req, res) => {
+    res.json({
+        msg: 'Hello world',
+    });
+});
 
-app.use('/users', require('./Routes/UserHandler'))
-app.use('/check', require('./Routes/UrlHandler'))
+app.use('/users', require('./Routes/UserHandler'));
+app.use('/check', require('./Routes/UrlHandler'));
 
+// Rest of your Express app code
