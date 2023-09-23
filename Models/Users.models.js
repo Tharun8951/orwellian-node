@@ -17,10 +17,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-}, {
-  capped: { size: 1024 },
-  bufferCommands: false,
-  autoCreate: false // disable `autoCreate` since `bufferCommands` is false
 })
 
 // static signup method
