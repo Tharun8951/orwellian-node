@@ -35,7 +35,7 @@ userSchema.statics.signup = async function(username, email, password) {
   //   throw Error('Use a strong password')
   // }
 
-  const exists = await this.findOne({ username })
+  const exists = await this.findOne({ username }).maxTime(20000)
   if (exists) {
     throw Error('Username already in use')
   }
@@ -43,7 +43,7 @@ userSchema.statics.signup = async function(username, email, password) {
   const salt = await bcrypt.genSalt(10)
   const hash = await bcrypt.hash(password, salt)
 
-  const user = await this.create({ username, email, password: hash })
+  const user = await this.create({ username, email, password: hash }).maxTime(20000)
   return user
 }
 
@@ -52,7 +52,7 @@ userSchema.statics.login = async function(username, password){
   if(!username || !password){
     throw Error('All fields must be filled')
   }
-  const user = await this.findOne({ username })
+  const user = await this.findOne({ username }).maxTime(20000)
   if (!user) {
     throw Error('please signup')
   }
