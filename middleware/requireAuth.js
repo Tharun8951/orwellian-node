@@ -3,14 +3,14 @@ const UsersModels = require('../Models/Users.models')
 
 const requireAuth = async (req, res, next) => {
     //verify authentication
-    // const authorization = req.body.auth
-    const token = req.body.auth
-    if(!token){
+    const authorization = req.headers.authorization
+    // const token = req.body.auth
+    if(!authorization){
         return res.status(401).json({  
             msg: 'auth token required'
         })
     }
-    // const token = authorization.split(' ')[1]
+    const token = authorization.split(' ')[1]
 
     try {
         const {_id} = jwt.verify(token, process.env.SECRET)
@@ -26,3 +26,4 @@ const requireAuth = async (req, res, next) => {
 }
 
 module.exports = { requireAuth }
+

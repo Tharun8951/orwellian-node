@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const UsersModels = require('../Models/Users.models')
+require('dotenv').config();
+
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '7d' })
