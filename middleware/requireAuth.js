@@ -3,7 +3,8 @@ const UsersModels = require('../Models/Users.models')
 
 const requireAuth = async (req, res, next) => {
     //verify authentication
-    const authorization = req.headers.authorization
+    // const authorization = req.headers.authorization
+    const authorization = req.headers['authorization']
     // const token = req.body.auth
     if(!authorization){
         return res.status(401).json({  
