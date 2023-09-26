@@ -34,7 +34,7 @@ const mlModelLookUp = async (url) => {
   try {
     const response = await axios.post(
       // 'https://orwellian-ai-ml.onrender.com/predict',
-      'http://ec2-3-87-196-16.compute-1.amazonaws.com:8080/predict',
+      'http://ec2-3-87-196-16.compute-1.amazonaws.com:5000/predict',
       {
         url: url,
       },
