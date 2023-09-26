@@ -3,7 +3,7 @@ const helper = async (ml_result, ipscore_result) => {
     // console.log(ml_result) 
     // console.log(ipscore_result) 
 
-    if(ipscore_result == true){
+    if(ipscore_result === true){
         ml_result = 'suspicious'
     } else {
         ml_result = 'safe' 
